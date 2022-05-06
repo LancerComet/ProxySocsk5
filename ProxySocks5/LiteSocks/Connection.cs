@@ -29,15 +29,15 @@ namespace ProxySocks5.LiteSocks {
       try {
         this._clientStream.CopyTo(_upstream);
       } catch (ObjectDisposedException) {
-        Console.WriteLine("the reader has closed");
-      }       catch (IOException) {
-        Console.WriteLine("the reader has closed");
+        Logger.Log("the reader has closed");
+      } catch (IOException) {
+        Logger.Log("the reader has closed");
       }
     }
 
     public async Task Response () {
       try {
-        Console.WriteLine("connect to upstream: {0}:{1}", _host, _port);
+        Logger.Log($"connect to upstream: {_host}:{_port}");
         this._tcpClient = new TcpClient();
         await _tcpClient.ConnectAsync(_host, _port);
         this._upstream = _tcpClient.GetStream();
@@ -50,8 +50,8 @@ namespace ProxySocks5.LiteSocks {
         Close();
       } catch (IOException e) {
         Close();
-        Console.WriteLine("connect to upstream {0}:{1} error: ", _host, _port);
-        Console.WriteLine(e.Message);
+        Logger.Log($"connect to upstream {_host}:{_port} error:");
+        Logger.Log(e.Message);
       }
     }
   }

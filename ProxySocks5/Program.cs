@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using ProxySocks5.LiteSocks;
 
 namespace ProxySocks5 {
-  internal static class Program {
+  public static class Program {
+    public static bool LogEnabled;
+
     private static void Main (string[] args) {
       var host = "0.0.0.0";
       var port = 8888;
@@ -18,6 +21,8 @@ namespace ProxySocks5 {
           port = 8888;
         }
       }
+
+      LogEnabled = args.Contains("-l");
 
       Console.WriteLine($"Server start at {host}:{port}.");
       var proxy = new Proxy(host, port);

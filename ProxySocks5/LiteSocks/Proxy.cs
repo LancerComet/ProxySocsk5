@@ -52,8 +52,8 @@ namespace ProxySocks5.LiteSocks {
               numberOfBytesHasRead += n;
             } while (numBytesToRead > 0);
 
-            Console.WriteLine("Socks5: upstream domain is {0}", Encoding.ASCII.GetString(bytes, 0, numberOfBytesHasRead));
             var domain = Encoding.ASCII.GetString(bytes, 0, numberOfBytesHasRead);
+            Logger.Log($"Socks5: upstream domain is {domain}");
             return domain;
 
           case 0x01:
@@ -79,7 +79,7 @@ namespace ProxySocks5.LiteSocks {
         } while (numBytesToRead > 0);
         if (numberOfByteshasRead == 0)
           throw new SocksUpstreamPortException("can not parse upstream port");
-        Console.WriteLine("Socks5: upstream port {0}", bytes[0] * 256 + bytes[1]);
+        Logger.Log($"Socks5: upstream port {bytes[0] * 256 + bytes[1]}");
         return bytes[0] * 256 + bytes[1];
       }
 
@@ -111,15 +111,15 @@ namespace ProxySocks5.LiteSocks {
           // 转发请求并获取响应
           await conn.Response();
         } catch (IOException e) {
-          Console.WriteLine(e.Message);
+          Logger.Log(e.Message);
         } catch (SocksVersionException e) {
-          Console.WriteLine(e.Message);
+          Logger.Log(e.Message);
         } catch (SocksDomainException e) {
-          Console.WriteLine(e.Message);
+          Logger.Log(e.Message);
         } catch (SocksUpstreamPortException e) {
-          Console.WriteLine(e.Message);
+          Logger.Log(e.Message);
         } catch (Exception e) {
-          Console.WriteLine(e.Message);
+          Logger.Log(e.Message);
         }
       }
 

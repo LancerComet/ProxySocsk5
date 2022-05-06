@@ -8,8 +8,10 @@ This is a tiny socks 5 proxy server that written in .NET 5.
  2. Run:
 
 ```bash
-ProxySocks5 [host] [port]
+ProxySocks5 [host] [port] [-l]
 ```
+
+ - `-l`: Enable console.
 
 Default host: `0.0.0.0`  
 Default port: `8888`
